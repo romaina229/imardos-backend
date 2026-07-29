@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: espertisea-api
+    name: imardos-api
     runtime: docker
     dockerfilePath: ./Dockerfile
     dockerContext: .
@@ -9,7 +9,7 @@ services:
     healthCheckPath: /up
     envVars:
       - key: APP_NAME
-        value: "Espertisea API"
+        value: "IMARDOS API"
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
@@ -26,23 +26,23 @@ services:
         value: pgsql
       - key: DB_HOST
         fromDatabase:
-          name: espertisea-db
+          name: imardos-db
           property: host
       - key: DB_PORT
         fromDatabase:
-          name: espertisea-db
+          name: imardos-db
           property: port
       - key: DB_DATABASE
         fromDatabase:
-          name: espertisea-db
+          name: imardos-db
           property: database
       - key: DB_USERNAME
         fromDatabase:
-          name: espertisea-db
+          name: imardos-db
           property: user
       - key: DB_PASSWORD
         fromDatabase:
-          name: espertisea-db
+          name: imardos-db
           property: password
       - key: SESSION_DRIVER
         value: database
@@ -58,8 +58,8 @@ services:
         value: "false"
 
 databases:
-  - name: espertisea-db
+  - name: imardos-db
     plan: starter
     region: frankfurt
-    databaseName: espertisea
-    user: espertisea
+    databaseName: imardos
+    user: imardos

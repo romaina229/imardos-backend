@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Gallery;
 use App\Models\JobResult;
 use App\Models\Donation;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
@@ -121,6 +122,12 @@ Route::delete('/job-results/{id}', function ($id) {
     \App\Models\JobResult::destroy($id);
     return response()->noContent();
 });
+
+// Route pour récupérer tous les contacts
+Route::get('/contacts', function () {
+    return Contact::orderBy('created_at', 'desc')->get();
+});
+Route::post('/contacts', function(Request $r) { return Contact::create($r->all()); });
 
 // Route pour enregistrer un don 
 Route::post('/donations', function (Request $request) {

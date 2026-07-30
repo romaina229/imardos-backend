@@ -127,7 +127,9 @@ Route::delete('/job-results/{id}', function ($id) {
 Route::get('/contacts', function () {
     return Contact::orderBy('created_at', 'desc')->get();
 });
-Route::post('/contacts', function(Request $r) { return Contact::create($r->all()); });
+Route::post('/contacts', function (Request $request) {
+    return Contact::create([ 'name' => $request->name, 'email' => $request->email, 'subject' => $request->subject, 'message' => $request->message,]);
+});
 
 // Route pour enregistrer un don 
 Route::post('/donations', function (Request $request) {

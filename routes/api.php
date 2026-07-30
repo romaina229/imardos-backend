@@ -128,7 +128,19 @@ Route::get('/contacts', function () {
     return Contact::orderBy('created_at', 'desc')->get();
 });
 Route::post('/contacts', function (Request $request) {
-    return Contact::create([ 'name' => $request->name, 'email' => $request->email, 'subject' => $request->subject, 'message' => $request->message,]);
+    return Contact::create([ 'name' => $request->name, 'email' => $request->email, 'subject' => $request->subject, 'message' => $request->message, 'is_read' => false ]);
+});
+// Route pour marquer comme lu
+Route::put('/contacts/{id}', function ($id) {
+    $contact = \App\Models\Contact::findOrFail($id);
+    $contact->update(['is_read' => true]);
+    return $contact;
+});
+
+// Route pour supprimer
+Route::delete('/contacts/{id}', function ($id) {
+    \App\Models\Contact::destroy($id);
+    return response()->noContent();
 });
 
 // Route pour enregistrer un don 

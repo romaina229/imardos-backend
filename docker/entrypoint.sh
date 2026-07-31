@@ -14,7 +14,7 @@ fi
 php artisan storage:link || true
 
 echo "==> Exécution des migrations (forcé temporairement)…"
-php artisan migrate:fresh --force
+php artisan migrate --force
 
 echo "==> Exécution des seeders (forcé temporairement)…"
 php artisan db:seed --force

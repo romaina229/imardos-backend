@@ -12,4 +12,15 @@ class Action extends Model
     protected $fillable = [
         'title', 'category', 'location', 'description', 'status', 'image'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($model) {
+            if ($model->image === '') {
+                $model->image = null;
+            }
+        });
+    }
 }

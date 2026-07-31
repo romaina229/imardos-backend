@@ -143,6 +143,17 @@ Route::delete('/contacts/{id}', function ($id) {
     return response()->noContent();
 });
 
+Route::put('/contacts/{id}', function ($id) {
+    $contact = \App\Models\Contact::find($id);
+    
+    if (!$contact) {
+        return response()->json(['error' => 'Contact non trouvé'], 404);
+    }
+
+    $contact->update(['is_read' => true]);
+    return response()->json(['success' => true, 'is_read' => $contact->is_read]);
+});
+
 // Route pour enregistrer un don 
 Route::post('/donations', function (Request $request) {
     $donation = Donation::create($request->all());

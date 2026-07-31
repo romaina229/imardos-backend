@@ -20,7 +20,7 @@ services:
         generateValue: true
       - key: APP_URL
         sync: false
-      - key: FRONTEND_URLS
+      - key: FRONTEND_URL
         sync: false
       - key: DB_CONNECTION
         value: pgsql

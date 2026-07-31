@@ -11,7 +11,5 @@ class Job extends Model
 
     protected $table = 'jobse';
 
-    protected $fillable = [
-        'title', 'department', 'type', 'deadline'
-    ];
+    protected $fillable = ['title', 'department', 'type', 'deadline', 'results'];
 }

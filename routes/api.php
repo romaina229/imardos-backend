@@ -7,6 +7,7 @@ use App\Models\Gallery;
 use App\Models\JobResult;
 use App\Models\Donation;
 use App\Models\Contact;
+use App\Models\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
@@ -130,19 +131,15 @@ Route::get('/contacts', function () {
 Route::post('/contacts', function (Request $request) {
     return Contact::create([ 'name' => $request->name, 'email' => $request->email, 'subject' => $request->subject, 'message' => $request->message, 'is_read' => false ]);
 });
-// Route pour marquer comme lu
 Route::put('/contacts/{id}', function ($id) {
     $contact = \App\Models\Contact::findOrFail($id);
     $contact->update(['is_read' => true]);
     return $contact;
 });
-
-// Route pour supprimer
 Route::delete('/contacts/{id}', function ($id) {
     \App\Models\Contact::destroy($id);
     return response()->noContent();
 });
-
 Route::put('/contacts/{id}', function ($id) {
     $contact = \App\Models\Contact::find($id);
     
@@ -152,6 +149,23 @@ Route::put('/contacts/{id}', function ($id) {
 
     $contact->update(['is_read' => true]);
     return response()->json(['success' => true, 'is_read' => $contact->is_read]);
+});
+
+// --- ROUTES POUR LES RESSOURCES ---
+Route::get('/resources', function () {
+    return Resource::orderBy('created_at', 'desc')->get();
+});
+Route::post('/resources', function (Request $request) {
+    return Resource::create($request->all());
+});
+Route::put('/resources/{id}', function (Request $request, $id) {
+    $resource = Resource::findOrFail($id);
+    $resource->update($request->all());
+    return $resource;
+});
+Route::delete('/resources/{id}', function ($id) {
+    Resource::destroy($id);
+    return response()->noContent();
 });
 
 // Route pour enregistrer un don 
